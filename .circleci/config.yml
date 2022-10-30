@@ -16,10 +16,6 @@ jobs:
       - run:
           name: install
           command: npm install
-  test:
-    docker:
-      - image: circleci/node:latest
-    steps:
       - run:
           name: test
           command: npm run test
@@ -27,6 +23,7 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
+      - checkout
       - run:
           name: deploy
           command: npm run deploy
@@ -38,10 +35,9 @@ workflows:
   main:
     jobs:
       - build
-      - test
       - deploy:
           requires:
-            - test
+            - build
           filters:
             branches:
               only:
