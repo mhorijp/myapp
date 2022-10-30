@@ -25,6 +25,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install
+          command: npm install
+      - run:
           name: deploy
           command: npm run deploy
 
