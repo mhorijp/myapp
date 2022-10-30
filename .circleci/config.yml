@@ -16,7 +16,6 @@ jobs:
       - run:
           name: install
           command: npm install
-  jest-test:
       - run:
           name: test
           command: npm run test
@@ -32,10 +31,9 @@ workflows:
   main:
     jobs:
       - build
-      - jest-test
       - deploy:
           requires:
-            - jest-test
+            - build
           filters:
             branches:
               only:
