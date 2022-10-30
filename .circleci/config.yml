@@ -16,10 +16,13 @@ jobs:
       - run:
           name: install
           command: npm install
+  test:
+    steps:
       - run:
           name: test
           command: npm run test
   deploy:
+    steps:
       - run:
           name: deploy
           command: npm run deploy
@@ -31,9 +34,10 @@ workflows:
   main:
     jobs:
       - build
+      - test
       - deploy:
           requires:
-            - build
+            - test
           filters:
             branches:
               only:
