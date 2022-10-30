@@ -18,7 +18,7 @@ jobs:
           command: npm install
   test:
       - run:
-          name: test
+          name: jest-test
           command: npm run test
   deploy:
       - run:
