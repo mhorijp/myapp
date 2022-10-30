@@ -7,7 +7,7 @@ orbs:
   node: circleci/node@4.7
 
 jobs:
-  deploy:
+  build:
     working_directory: ~/myapp
     docker:
       - image: circleci/node:latest
@@ -16,9 +16,11 @@ jobs:
       - run:
           name: install
           command: npm install
+  test:
       - run:
           name: test
           command: npm run test
+  deploy:
       - run:
           name: deploy
           command: npm run deploy
@@ -29,7 +31,11 @@ workflows:
   version: 2
   main:
     jobs:
+      - build
+      - test
       - deploy:
+          requires:
+            - test
           filters:
             branches:
               only:
