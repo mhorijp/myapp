@@ -39,6 +39,9 @@ jobs:
       - checkout
       - restore_modules
       - run:
+          name: install
+          command: npm install
+      - run:
           name: test
           command: npm run test
   deploy:
