@@ -3,14 +3,25 @@ version: 2.1
 
 # Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
 # See: https://circleci.com/docs/2.0/orb-intro/
-orbs:
-  node: circleci/node@4.7
 
-jobs:
-  build:
+executors:
+  appnode:
     working_directory: ~/myapp
     docker:
       - image: circleci/node:latest
+    
+jobs:
+  build:
+    executer:
+      name: appnode
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: npm install
+  test:
+    executer:
+      name: appnode
     steps:
       - checkout
       - run:
@@ -20,8 +31,8 @@ jobs:
           name: test
           command: npm run test
   deploy:
-    docker:
-      - image: circleci/node:latest
+    executer:
+      name: appnode
     steps:
       - checkout
       - run:
